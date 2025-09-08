@@ -34,8 +34,15 @@
     const canvas = document.getElementById("game");
     const ctx = canvas.getContext("2d");
 
+    // 이미지 로드
+    const playerImg = new Image();
+    playerImg.src = "player.png";   // 저장소에 업로드한 파일명
+
+    const axeImg = new Image();
+    axeImg.src = "axe.png";         // 저장소에 업로드한 파일명
+
     // 플레이어
-    const player = { x: 220, y: 580, w: 40, h: 40, speed: 5 };
+    const player = { x: 220, y: 580, w: 60, h: 60, speed: 5 };
 
     // 도끼(투사체) 배열
     const axes = [];
@@ -48,8 +55,8 @@
     window.addEventListener("keyup", e => keys[e.key] = false);
 
     function spawnAxe() {
-      const x = Math.random() * (canvas.width - 20);
-      axes.push({ x, y: -20, w: 20, h: 20, speed: 3 + Math.random() * 3 });
+      const x = Math.random() * (canvas.width - 40);
+      axes.push({ x, y: -40, w: 40, h: 40, speed: 3 + Math.random() * 3 });
     }
 
     function update() {
@@ -90,14 +97,12 @@
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // 플레이어 (파란 사각형)
-      ctx.fillStyle = "cyan";
-      ctx.fillRect(player.x, player.y, player.w, player.h);
+      // 플레이어 이미지
+      ctx.drawImage(playerImg, player.x, player.y, player.w, player.h);
 
-      // 도끼 (보라색 사각형 = 문도 도끼)
-      ctx.fillStyle = "violet";
+      // 도끼 이미지
       for (let axe of axes) {
-        ctx.fillRect(axe.x, axe.y, axe.w, axe.h);
+        ctx.drawImage(axeImg, axe.x, axe.y, axe.w, axe.h);
       }
     }
 
